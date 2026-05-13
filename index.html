@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Para Gabi</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Segoe UI', sans-serif;
+    }
+
+    body{
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      overflow:hidden;
+      background:linear-gradient(135deg,#0f172a,#1e293b,#334155);
+      color:white;
+      position:relative;
+    }
+
+    /* ESTRELLAS */
+
+    .stars{
+      position:absolute;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      z-index:0;
+    }
+
+    .star{
+      position:absolute;
+      width:2px;
+      height:2px;
+      background:white;
+      border-radius:50%;
+      animation:blink 3s infinite ease-in-out;
+    }
+
+    @keyframes blink{
+
+      0%,100%{
+        opacity:0.2;
+      }
+
+      50%{
+        opacity:1;
+      }
+
+    }
+
+    /* CONTENEDOR */
+
+    .container{
+      position:relative;
+      z-index:1;
+      width:90%;
+      max-width:760px;
+      padding:45px;
+      border-radius:25px;
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(10px);
+      text-align:center;
+      box-shadow:0 8px 30px rgba(0,0,0,0.4);
+    }
+
+    h1{
+      font-size:2.5rem;
+      margin-bottom:20px;
+      color:#f8fafc;
+    }
+
+    .name{
+      color:#fda4af;
+    }
+
+    .message{
+      font-size:1.2rem;
+      line-height:1.9;
+      color:#e2e8f0;
+      margin-bottom:30px;
+      min-height:220px;
+      transition:0.5s;
+    }
+
+    /* CORAZÓN */
+
+    .heart{
+      font-size:4rem;
+      color:#f87171;
+      animation:pulse 1.5s infinite;
+      margin-bottom:10px;
+    }
+
+    @keyframes pulse{
+
+      0%{
+        transform:scale(1);
+      }
+
+      50%{
+        transform:scale(1.2);
+      }
+
+      100%{
+        transform:scale(1);
+      }
+
+    }
+
+    /* BOTÓN */
+
+    button{
+      margin-top:15px;
+      padding:12px 28px;
+      border:none;
+      border-radius:30px;
+      background:#f87171;
+      color:white;
+      font-size:1rem;
+      cursor:pointer;
+      transition:0.3s ease;
+    }
+
+    button:hover{
+      background:#ef4444;
+      transform:scale(1.05);
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- MÚSICA -->
+
+  <audio id="musica" loop>
+
+    <source src="music.mp3" type="audio/mpeg">
+
+  </audio>
+
+  <!-- ESTRELLAS -->
+
+  <div class="stars"></div>
+
+  <!-- CONTENIDO -->
+
+  <div class="container">
+
+    <h1>
+      Para <span class="name">Gabi</span>,
+      o como siempre te decía...
+      <span class="name">Amor</span>
+    </h1>
+
+    <div class="message" id="text"></div>
+
+    <div class="heart">❤</div>
+
+    <button onclick="mostrarMensaje()">
+      Leer lo que siento
+    </button>
+
+  </div>
+
+  <script>
+
+    // MENSAJES
+
+    const mensajes = [
+
+      'Estos días pensar mucho me está consumiendo...',
+
+      'Me he dado cuenta de cuánto tiempo perdí sin valorar realmente todo lo que hacías por mí.',
+
+      'Ahora me cuesta dormir... y cuando despierto siento ese vacío de saber que ya nada es igual.',
+
+      'Extraño tus audios y la manera en la que siempre encontrabas algo para contarme.',
+
+      'Extraño cuando llegabas emocionada diciendo “tengo chismesito” y empezabas a contarme tus historias.',
+
+      'Aunque muchas veces no lo demostraba, en esos momentos era el hombre más feliz del mundo.',
+
+      'Hoy entiendo muchas cosas que antes ignoraba.',
+
+      'Ahora entiendo todas esas veces en las que te sentiste sola mientras yo no lograba darme cuenta.',
+
+      'Y me duele pensar que mientras tú sufrías en silencio... yo seguía actuando como si nada pasara.',
+
+      'Me doy cuenta de cuánto significaban para mí las pequeñas cosas que hacías.',
+
+      'A veces cierro los ojos y solo quisiera volver a escuchar tu voz hablándome como antes.',
+
+      'La verdad... mi corazón todavía quiere que tus ojitos cafés sigan mirándome.',
+
+      'Necesitaba desahogarme y que supieras todo lo que estoy sintiendo.',
+
+      'Porque a pesar de esto... todavía te amo.'
+
+    ];
+
+    let index = 0;
+
+    function mostrarMensaje(){
+
+      const text = document.getElementById('text');
+
+      if(index < mensajes.length){
+
+        text.style.opacity = 0;
+
+        setTimeout(() => {
+
+          text.innerHTML = mensajes[index];
+
+          text.style.opacity = 1;
+
+          index++;
+
+        }, 400);
+
+      }
+
+    }
+
+    // MÚSICA
+
+    const musica = document.getElementById("musica");
+
+    musica.volume = 0.5;
+
+    document.body.addEventListener("click", () => {
+
+      musica.play();
+
+    }, { once:true });
+
+    // ESTRELLAS
+
+    const starsContainer = document.querySelector('.stars');
+
+    for(let i = 0; i < 120; i++){
+
+      const star = document.createElement('div');
+
+      star.classList.add('star');
+
+      star.style.top = Math.random() * 100 + '%';
+
+      star.style.left = Math.random() * 100 + '%';
+
+      star.style.animationDuration =
+      (Math.random() * 3 + 2) + 's';
+
+      star.style.opacity = Math.random();
+
+      starsContainer.appendChild(star);
+
+    }
+
+  </script>
+
+</body>
+
+</html>
